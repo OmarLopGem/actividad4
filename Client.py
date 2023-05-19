@@ -12,8 +12,8 @@ parser.add_argument('--task', type=str, required = True, help='Enter task to be 
 
 args = parser.parse_args()
 
-current_time = datetime.datetime.now();
-current_time = current_time.strftime("%D %H:%M:%S");
+current_time = datetime.datetime.now()
+current_time = current_time.strftime("%D %H:%M:%S")
 
 x = {
   "walltime": args.walltime,

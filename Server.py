@@ -11,25 +11,39 @@ secs = 10
 
 x = {}
 x = json.dumps(x)
-#while secs:
-	#m, s = divmod(secs, 60)
-	#x = {}
-	#x = json.dumps(x)
-	#time.sleep(1)
-	#secs -= 1
+# while secs:
+# m, s = divmod(secs, 60)
+# x = {}
+# x = json.dumps(x)
+# time.sleep(1)
+# secs -= 1
 
 serv.bind((host, port))
 
 serv.listen(5)
 
+serv.settimeout(4)
+
+start_time = time.time()
+end_time = start_time + 60
+
 while True:
-	conn, addr = serv.accept()
-	conn.send(b"Processing request ... ")
-	data = conn.recv(4096)
-	data = data.decode("utf8");
-	data = json.loads(data);
-	conn.sendall(bytes(x,encoding="utf-8"))
-	if not data: break
-	print('Last request ...')
-	print (data)
-	print(x)
+    try:
+        serv.settimeout(end_time - time.time())
+        print('Waiting for connection ... ')
+        conn, addr = serv.accept()
+        print('Connection from: ', addr)
+        conn.send(b"Processing request ... ")
+        data = conn.recv(4096)
+        data = data.decode("utf8")
+        data = json.loads(data)
+        conn.sendall(bytes(x, encoding="utf-8"))
+        if not data:
+            break
+        print('Last request ...')
+        print(data)
+        print(x)
+
+    except socket.timeout:
+        print('Time out')
+        break
