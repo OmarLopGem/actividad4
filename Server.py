@@ -7,9 +7,16 @@ port = 65432
 
 serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-x = {}
+secs = 10
 
+x = {}
 x = json.dumps(x)
+#while secs:
+	#m, s = divmod(secs, 60)
+	#x = {}
+	#x = json.dumps(x)
+	#time.sleep(1)
+	#secs -= 1
 
 serv.bind((host, port))
 
@@ -25,3 +32,4 @@ while True:
 	if not data: break
 	print('Last request ...')
 	print (data)
+	print(x)

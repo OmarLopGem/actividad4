@@ -4,7 +4,11 @@ import argparse
 import datetime
 
 parser = argparse.ArgumentParser(description='MOAB-Torque')
-parser.add_argument('--mssg', type=str, required = True, help='Enter message')
+parser.add_argument('--walltime', type=int, required = True, help='Enter walltime type int')
+parser.add_argument('--mempeak', type=str, required = True, help='Enter mempeak #gb')
+parser.add_argument('--cpu', type=int, required = True, help='Enter cores to be used')
+parser.add_argument('--task', type=str, required = True, help='Enter task to be done')
+
 
 args = parser.parse_args()
 
@@ -12,7 +16,10 @@ current_time = datetime.datetime.now();
 current_time = current_time.strftime("%D %H:%M:%S");
 
 x = {
-  "mssg": args.mssg,
+  "walltime": args.walltime,
+  "mempeak": args.mempeak,
+  "cpu": args.cpu,
+  "task": args.task,
   "Date": current_time
 }
 
