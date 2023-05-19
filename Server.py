@@ -11,12 +11,6 @@ secs = 10
 
 x = {}
 x = json.dumps(x)
-# while secs:
-# m, s = divmod(secs, 60)
-# x = {}
-# x = json.dumps(x)
-# time.sleep(1)
-# secs -= 1
 
 serv.bind((host, port))
 
