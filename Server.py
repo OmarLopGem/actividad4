@@ -21,6 +21,8 @@ serv.settimeout(4)
 start_time = time.time()
 end_time = start_time + 60
 
+tasks_list=[]
+
 while True:
     try:
         serv.settimeout(end_time - time.time())
@@ -31,6 +33,9 @@ while True:
         data = conn.recv(4096)
         data = data.decode("utf8")
         data = json.loads(data)
+        
+        tasks_list.append({'task': data['task'], 'cpu': data['cpu']})
+        
         conn.sendall(bytes(x, encoding="utf-8"))
         if not data:
             break
@@ -41,3 +46,8 @@ while True:
     except socket.timeout:
         print('Time out')
         break
+
+tasks_list.sort(key=lambda task: task['cpu'])
+sorted_tasks = [task['task'] for task in tasks_list]
+for task in sorted_tasks:
+    print(task)
