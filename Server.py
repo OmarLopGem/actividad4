@@ -42,7 +42,6 @@ while True:
             break
         print('Last request ...')
         print(data)
-        print(x)
 
     except socket.timeout:
         print('Task processed succesfully')
@@ -55,4 +54,4 @@ for task in sorted_tasks:
     print('Task with Zipcode: ',task)
     zipCode = str(task)
     print(tk.task(zipCode))
-print('\n')
+    print('\n')
