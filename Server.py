@@ -1,6 +1,7 @@
 import socket
 import json
 import time
+import task as tk
 
 host = '127.0.0.1'
 port = 65432
@@ -26,10 +27,10 @@ tasks_list=[]
 while True:
     try:
         serv.settimeout(end_time - time.time())
-        print('Waiting for connection ... ')
+        print('Send tasks with walltime, mempeak, cpu and task(Zipcode) during a minute to process... ')
         conn, addr = serv.accept()
         print('Connection from: ', addr)
-        conn.send(b"Processing request ... ")
+        conn.send(b"Processing task ... ")
         data = conn.recv(4096)
         data = data.decode("utf8")
         data = json.loads(data)
@@ -44,10 +45,14 @@ while True:
         print(x)
 
     except socket.timeout:
-        print('Time out')
+        print('Task processed succesfully')
+        print('Results:')
         break
 
 tasks_list.sort(key=lambda task: task['cpu'])
 sorted_tasks = [task['task'] for task in tasks_list]
 for task in sorted_tasks:
-    print(task)
+    print('Task with Zipcode: ',task)
+    zipCode = str(task)
+    print(tk.task(zipCode))
+print('\n')
